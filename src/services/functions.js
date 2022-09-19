@@ -4,7 +4,7 @@ export const numberModifier = (num = 1) => {
 };
 
 export const textCut = (txt) => {
-  const newTxt = txt.split(' ').slice(0, 30).join(' ');
+  const newTxt = txt.split(' ').slice(0, 17).join(' ');
 
   return newTxt;
 };

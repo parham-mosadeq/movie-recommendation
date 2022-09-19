@@ -10,11 +10,16 @@ const Pagination = ({ totalMovie, moviePerPage, nextPage }) => {
   }
 
   return (
-    <nav>
-      <ul>
+    <nav className='bg-gray-300 w-full  '>
+      <ul className='flex justify-around mt-2'>
         {pageNumbers.map((num) => (
           <li key={num}>
-            <span onClick={() => nextPage(num)}>{num}</span>
+            <span
+              className='hover:cursor-pointer'
+              onClick={() => nextPage(num)}
+            >
+              {num}
+            </span>
           </li>
         ))}
       </ul>

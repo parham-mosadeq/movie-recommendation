@@ -1,14 +1,10 @@
-import React from 'react';
-// *router
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+
 // *function
-import { textCut } from '../../services/functions';
+import { textCut, numberModifier } from '../../services/functions';
 
 const HomePageMovie = ({
-  id,
-  backdrop_path,
   original_language,
-  original_title,
   popularity,
   poster_path,
   title,
@@ -17,19 +13,51 @@ const HomePageMovie = ({
   overview,
   i,
 }) => {
+  const [showOverview, setShowOverview] = useState(false);
   return (
-    <div>
-      <Link to={`/movie-details/${id}`}>
-        <img
-          width={50}
-          src={`https://image.tmdb.org/t/p/w1280/${poster_path}`}
-          alt={title}
-        />
-      </Link>
-      <h4>title:{title}</h4>
+    <div
+      className=' p-2 shadow-xl m-3 rounded-md bg-teal-800 text-white
+      overflow-x-hidden
+    '
+    >
+      <img
+        className='h-96 w-full object-contain mt-2 mb-2 '
+        src={`https://image.tmdb.org/t/p/w1280/${poster_path}`}
+        alt={title}
+      />
+      <h4 className='font-bold tracking-wider capitalize  '>
+        title:
+        <span className='font-light '>{title}</span>
+      </h4>
       <div>
-        {textCut(overview)}{' '}
-        <Link to={`/movie-details/${id}`}>read more...</Link>
+        <div className='shadow-xl p-3 m-2 rounded-lg'>
+          {!showOverview && <>{textCut(overview)}</>}
+          {showOverview && <div>{overview}</div>}
+          <span
+            className='hover:cursor-pointer hover:text-sky-600 text-sky-500'
+            onClick={() => setShowOverview(!showOverview)}
+          >
+            {' '}
+            {showOverview ? 'show less' : 'show more...'}
+          </span>
+        </div>
+
+        <span className='capitalize'>votes:{numberModifier(vote_count)}</span>
+        <p className='capitalize'>
+          ratings:#
+          <span
+            className={vote_average >= 7 ? 'text-green-500' : 'text-yellow-600'}
+          >
+            {vote_average}
+          </span>
+        </p>
+      </div>
+      <div>
+        <p className='capitalize'>language:#{original_language}</p>
+        <p className='capitalize'>
+          popularity:
+          <span>{popularity}</span>
+        </p>
       </div>
     </div>
   );
